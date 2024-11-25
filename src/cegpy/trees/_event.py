@@ -236,8 +236,8 @@ class EventTree(nx.MultiDiGraph):
 
     def dot_graph(self, edge_info: str = "count") -> pdp.Dot:
         """Returns Dot graph representation of the event tree.
-        :param edge_info: Optional - Chooses which summary measure to be displayed on edges.
-        In event trees, only "count" can be displayed, so this can be omitted.
+        :param edge_info: Optional - Chooses which summary measure to be displayed on edges. Defaults to "count". Options: ["count", "none"]
+        :type edge_info: str
 
         :type edge_info: str
         :return: A graphviz Dot representation of the graph.
@@ -256,6 +256,8 @@ class EventTree(nx.MultiDiGraph):
         for edge, attribute in edge_info_dict.items():
             if edge_info == "count":
                 edge_details = str(edge[2]) + "\n" + str(attribute)
+            elif edge_info == "none":
+                edge_details = str(edge[2])
             else:
                 edge_details = f"{edge[2]}\n{float(attribute):.2f}"
 
@@ -321,8 +323,7 @@ class EventTree(nx.MultiDiGraph):
 
         :type filename: str
 
-        :param edge_info: Optional - Chooses which summary measure to be displayed on edges.
-            In event trees, only "count" can be displayed, so this can be omitted.
+        :param edge_info: Optional - Chooses which summary measure to be displayed on edges. Defaults to "count". Options: ["count", "none"]
         :type edge_info: str
 
         :return: The event tree Image object.
