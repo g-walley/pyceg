@@ -623,7 +623,7 @@ class StagedTree(EventTree):
                     if situ_pair[1] in comb:
                         hyperstage_combinations.remove(comb)
 
-        while True:
+        while len(hyperstage_combinations) != 0:
             newscores_list = [
                 self._calculate_bayes_factor(
                     priors[self.situations.index(sub_hyper[0])],
@@ -755,6 +755,11 @@ class StagedTree(EventTree):
         :param colour_list: Optional - a list of hex colours to be used for stages.
             Otherwise, colours evenly spaced around the colour spectrum are used.
         :type colour_list: List[str]
+
+        :param initial_staging: Optional - Specifies groups of nodes which are forced to 
+            be in the same stage before the AHC selection algorithm is run. Each list is 
+            a list of node names e.g. "s0".
+        :type initial_staging: List[List[str]]
 
         :return: The output from the AHC algorithm, specified above.
         :rtype: Dict
